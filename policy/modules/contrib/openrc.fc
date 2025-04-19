@@ -1,1 +1,2 @@
 /usr/lib/rc/sh/cgroup-release-agent\.sh	--	gen_context(system_u:object_r:openrc_cgroup_release_exec_t,s0)
+/var/lib/seedrng(/seed\.(no-)?credit)?		gen_context(system_u:object_r:seedrng_var_lib_t,s0)

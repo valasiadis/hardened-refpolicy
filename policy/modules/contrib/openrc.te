@@ -33,3 +33,17 @@ fs_manage_cgroup_files(openrc_cgroup_release_t)
 fs_search_tmpfs(openrc_cgroup_release_t)
 
 auth_use_nsswitch(openrc_cgroup_release_t)
+
+# seedrng patch
+gen_require(`
+  type setfiles_t;
+  type initrc_t;
+')
+type seedrng_var_lib_t;
+# rules to allow the init process to use seedrng for seed feeding...
+allow initrc_t seedrng_var_lib_t:dir { read write open lock search add_name remove_name };
+allow initrc_t seedrng_var_lib_t:file { create write read open rename unlink };
+# to allow the relabeling of the files:
+allow setfiles_t seedrng_var_lib_t:dir { relabelto getattr read open search };
+allow setfiles_t seedrng_var_lib_t:file { relabelto getattr };
+allow seedrng_var_lib_t fs_t:filesystem { associate };
